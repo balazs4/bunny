@@ -1,5 +1,4 @@
-const size = parseInt(process.argv[2]) || 4;
-const find = (function (length) {
+const game = function (length) {
   function jump(oldpos) {
     if (oldpos === 0) {
       return oldpos + 1;
@@ -12,7 +11,7 @@ const find = (function (length) {
   }
 
   let attempts = 0;
-  let pos = jump(parseInt(Math.random() * 1000) % length);
+  let pos = jump(parseInt(Math.random() * 1000));
 
   return function (guess) {
     attempts++;
@@ -29,14 +28,17 @@ const find = (function (length) {
 
     if (pos === guess) {
       console.log(`You found the 🐰 at ${pos} after ${attempts} attempts.`);
-      process.exit(0);
+      return true;
     }
     pos = jump(pos);
+    return false;
   };
-})(size);
+};
+
+const size = parseInt(process.argv[2]) || 4;
+const find = game(size);
 
 let i = 0;
-while (true) {
-  find(i);
+while (find(i) === false) {
   i = (i + 1) % size;
 }
