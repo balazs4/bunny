@@ -11,7 +11,7 @@ const game = function (length) {
   }
 
   let attempts = 0;
-  let pos = jump(parseInt(Math.random() * 1000));
+  let pos = jump(parseInt(Math.random() * 1000) % length);
 
   return function (guess) {
     attempts++;
@@ -39,6 +39,13 @@ const size = parseInt(process.argv[2]) || 4;
 const find = game(size);
 
 let i = 0;
-while (find(i) === false) {
-  i = (i + 1) % size;
-}
+let guess = null;
+do {
+  if (i % size === 0) {
+    guess = size - 1;
+  }
+  i++;
+  if (find(guess) === true) {
+    break;
+  }
+} while (true);
