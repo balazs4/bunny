@@ -41,9 +41,7 @@ const find = game(size);
 let i = 0;
 let guess = null;
 do {
-  if (i % size === 0) {
-    guess = size - 1;
-  }
+  guess = i;
   i++;
   if (find(guess) === true) {
     break;
